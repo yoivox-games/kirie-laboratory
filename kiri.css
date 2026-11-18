@@ -1,0 +1,57 @@
+/* Kiri — a little resident made from the laboratory's paper offcuts. */
+.kiri-layer{position:fixed;inset:0;z-index:30;overflow:hidden;pointer-events:none;contain:layout paint;--kiri-ink:#191b18;--kiri-paper:#f3f2ed}
+.kiri-actor{position:absolute;left:0;top:0;width:86px;height:112px;border:0;padding:0;background:none;color:var(--kiri-ink);pointer-events:auto;cursor:pointer;touch-action:manipulation;transform-origin:50% 100%;will-change:transform}
+.kiri-actor[hidden],.kiri-layer[hidden]{display:none}
+.kiri-actor:focus-visible{outline:1px dashed #997035;outline-offset:4px;border-radius:45%}
+.kiri-facing{display:block;width:100%;height:100%;transform:scaleX(var(--kiri-facing,1))}
+.kiri-svg{display:block;width:100%;height:100%;overflow:visible}
+.kiri-silhouette{fill:var(--kiri-ink);stroke:var(--kiri-paper);stroke-width:1.2;stroke-linejoin:round}
+.kiri-cut{fill:var(--kiri-paper)}
+.kiri-fold{fill:none;stroke:var(--kiri-paper);stroke-width:1.1;stroke-linecap:round}
+.kiri-body,.kiri-head,.kiri-arm,.kiri-foot,.kiri-eyes{transform-box:fill-box;transform-origin:50% 80%}
+.kiri-head{transform-origin:50% 95%}
+.kiri-eye-look{transform:translate(var(--look-x,0px),var(--look-y,0px))}
+.kiri-eyes{transform-origin:50% 50%;animation:kiri-blink 6.2s infinite}
+.kiri-arm-right{transform-origin:12% 10%}
+.kiri-arm-left{transform-origin:80% 10%}
+.kiri-foot{transform-origin:50% 10%}
+.kiri-shadow{fill:#7c7e72;opacity:.17;transform-origin:50% 50%;transform-box:fill-box}
+.kiri-gift,.kiri-surprise,.kiri-cheek{opacity:0}
+.kiri-actor[data-action="walk"] .kiri-body{animation:kiri-step .32s infinite ease-in-out}
+.kiri-actor[data-action="walk"] .kiri-foot-left{animation:kiri-foot .32s infinite alternate ease-in-out}
+.kiri-actor[data-action="walk"] .kiri-foot-right{animation:kiri-foot .32s infinite alternate-reverse ease-in-out}
+.kiri-actor[data-action="walk"] .kiri-arm{animation:kiri-arm .32s infinite alternate ease-in-out}
+.kiri-actor[data-action="peek"] .kiri-head{transform:rotate(-12deg)}
+.kiri-actor[data-action="peek"] .kiri-body{transform:rotate(-9deg)}
+.kiri-actor[data-action="poke"] .kiri-arm-right{animation:kiri-poke .6s 3 ease-in-out}
+.kiri-actor[data-action="poke"] .kiri-head{transform:rotate(8deg)}
+.kiri-actor[data-action="startled"] .kiri-body{animation:kiri-startle .75s ease-out}
+.kiri-actor[data-action="startled"] .kiri-surprise{opacity:1}
+.kiri-actor[data-action="wave"] .kiri-arm-right{animation:kiri-wave .35s 6 alternate ease-in-out}
+.kiri-actor[data-action="wave"] .kiri-head{transform:rotate(-8deg)}
+.kiri-actor[data-action="gift"] .kiri-arm-right{transform:rotate(-48deg)}
+.kiri-actor[data-action="gift"] .kiri-gift{opacity:1;animation:kiri-offer 1.8s ease-in-out infinite}
+.kiri-actor[data-action="gift"] .kiri-cheek{opacity:1}
+.kiri-actor[data-action="doze"] .kiri-head{transform:rotate(14deg) translateY(3px)}
+.kiri-actor[data-action="doze"] .kiri-eyes{transform:scaleY(.15);animation:none}
+.kiri-actor[data-action="doze"] .kiri-body{animation:kiri-breathe 3s ease-in-out infinite}
+.kiri-speech{position:absolute;top:0;left:0;width:max-content;max-width:min(244px,calc(100vw - 24px));white-space:normal;overflow-wrap:anywhere;background:var(--kiri-paper);border:1px solid #b8b8ad;color:var(--kiri-ink);font-family:var(--font);font-size:11px;line-height:1.6;letter-spacing:.06em;padding:9px 13px;opacity:0;transition:opacity .2s;box-shadow:3px 4px 0 #191b180a}
+.kiri-speech[data-visible="true"]{opacity:1}
+.kiri-speech::after{content:"";position:absolute;width:7px;height:7px;background:var(--kiri-paper);border-right:1px solid #b8b8ad;border-bottom:1px solid #b8b8ad;bottom:-5px;left:var(--speech-tip,24px);transform:rotate(45deg)}
+.kiri-control{position:absolute;right:max(16px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));pointer-events:auto;display:flex;align-items:center;gap:9px;min-height:44px;padding:8px 13px;border:1px solid #a7a89c;background:#f3f2edf5;color:#393c34;font-size:10px;line-height:1.4;letter-spacing:.05em;cursor:pointer;box-shadow:2px 3px 0 #191b1806}
+.kiri-control:hover{background:#e7e8de}.kiri-control svg{flex:none}.kiri-control[aria-pressed="false"]{color:#65675f}
+.kiri-chip{position:absolute;top:0;left:0;width:13px;height:19px;background:#7ca79b;clip-path:polygon(22% 0,100% 21%,73% 100%,0 65%);opacity:.72}
+.kiri-chip:nth-child(even){background:#bb8b4f;width:10px;height:14px}
+.kiri-sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@keyframes kiri-blink{0%,43%,47%,82%,86%,100%{transform:scaleY(1)}45%,84%{transform:scaleY(.08)}}
+@keyframes kiri-step{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-3px) rotate(2deg)}}
+@keyframes kiri-foot{from{transform:rotate(-17deg) translateY(-2px)}to{transform:rotate(21deg) translateY(1px)}}
+@keyframes kiri-arm{from{transform:rotate(-9deg)}to{transform:rotate(9deg)}}
+@keyframes kiri-poke{0%,100%{transform:rotate(-10deg)}50%{transform:rotate(-68deg)}}
+@keyframes kiri-startle{0%,100%{transform:translateY(0)}25%{transform:translateY(-17px) rotate(-9deg)}55%{transform:translateY(-4px) rotate(6deg)}75%{transform:translateY(-7px)}}
+@keyframes kiri-wave{from{transform:rotate(-95deg)}to{transform:rotate(-140deg)}}
+@keyframes kiri-offer{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes kiri-breathe{0%,100%{transform:translateY(0)}50%{transform:translateY(2px)}}
+@media(max-width:600px){.kiri-actor{width:70px;height:92px}.kiri-control{right:10px;bottom:max(8px,env(safe-area-inset-bottom));padding:8px 11px;font-size:10px}.kiri-speech{font-size:10px;padding:8px 11px}}
+@media(prefers-reduced-motion:reduce){.kiri-layer *{animation:none!important;transition:none!important}}
+@media print{.kiri-layer{display:none}}

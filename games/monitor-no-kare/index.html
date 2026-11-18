@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#191323">
+  <meta name="description" content="画面の奥で、彼があなたを待っている。選択とともに表情が変わる、5つの結末のサイコホラー・ノベル。">
+  <title>モニター越しの彼</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png?v=3">
+  <link rel="icon" type="image/x-icon" href="./favicon.ico?v=3">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png?v=3">
+  <link rel="canonical" href="https://yoivox-games.github.io/kirie-laboratory/games/monitor-no-kare/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:site_name" content="モニター越しの彼">
+  <meta property="og:title" content="モニター越しの彼">
+  <meta property="og:description" content="画面の奥で、彼がきみを待っている。選択で表情が変わる、5つの結末のサイコホラー・ノベル。">
+  <meta property="og:url" content="https://yoivox-games.github.io/kirie-laboratory/games/monitor-no-kare/">
+  <meta property="og:image" content="https://yoivox-games.github.io/kirie-laboratory/games/monitor-no-kare/og.png?v=10">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="薄紫のモニターと赤い瞳の彼、ゲームタイトル『モニター越しの彼』">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="モニター越しの彼">
+  <meta name="twitter:description" content="選択で表情が変わる、5つの結末のサイコホラー・ノベル。">
+  <meta name="twitter:image" content="https://yoivox-games.github.io/kirie-laboratory/games/monitor-no-kare/og.png?v=10">
+  <meta name="twitter:image:alt" content="薄紫のモニターと赤い瞳の彼、ゲームタイトル『モニター越しの彼』">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="modulepreload" href="./story.mjs">
+  <link rel="preload" as="image" href="./assets/title.webp">
+</head>
+<body data-tension="0" data-scene="start" data-view="login">
+  <audio id="bgm" loop preload="auto" aria-hidden="true"></audio>
+  <section class="login-screen" id="login-screen" aria-labelledby="login-title">
+    <div class="login-wallpaper" id="login-wallpaper" aria-hidden="true"><img class="login-art" src="./assets/title.webp" alt="" fetchpriority="high"><img class="login-art expression-frame" id="login-expression" src="./assets/title-smile.webp" alt=""><img class="login-art blink-frame" id="login-blink" alt=""></div>
+    <div class="login-terminal" id="login-terminal">
+      <header class="login-system-bar"><h1 id="login-title">モニター越しの彼</h1><span class="login-window-marks" aria-hidden="true">_ □ ×</span></header>
+      <div class="login-panel">
+        <nav class="login-menu" aria-label="ゲームメニュー">
+          <button id="login-start" class="login-menu-button login-primary"><span class="login-menu-mark" aria-hidden="true">▸</span><span><strong>スタート</strong><small id="login-start-note">はじめから接続</small></span></button>
+          <button id="login-gallery" class="login-menu-button"><span class="login-menu-mark" aria-hidden="true">▦</span><span><strong>ギャラリー</strong><small id="login-gallery-note">夜の記録　0 / 5</small></span></button>
+          <button id="login-reset" class="login-menu-button login-reset"><span class="login-menu-mark" aria-hidden="true">↺</span><span><strong>リセット</strong><small>すべてのプレイ記録を消去</small></span></button>
+        </nav>
+      </div>
+      <div class="login-system-footer"><button class="music-toggle pixel-control" data-music-toggle type="button" aria-pressed="true"><span class="pixel-label">BGM ON</span></button><span class="mono">SESSION: <span id="login-session">NEW</span></span><span id="login-status" role="status">接続待機中</span></div>
+    </div>
+  </section>
+  <section class="intro-screen" id="intro-screen" aria-label="オープニングムービー" inert>
+    <video id="intro-video" playsinline preload="none" poster="./assets/title.webp" disablepictureinpicture><source src="./assets/intro.mp4" type="video/mp4"></video>
+    <div class="intro-toolbar"><span class="mono">CONNECTING_</span><button id="skip-intro">スキップ</button></div>
+    <button class="intro-play" id="intro-play" hidden>ムービーを再生</button>
+    <p class="intro-message" id="intro-message" role="status"></p>
+  </section>
+  <div class="interference" id="interference" aria-hidden="true"><div class="interference-grain"></div><div class="interference-tear"></div><span class="mono interference-code">SIGNAL LOST_</span></div>
+  <div class="world" aria-hidden="true">
+    <div class="ambient"></div>
+    <div class="portrait-frame" id="portrait-frame">
+      <img class="portrait-layer active" id="portrait-a" src="./assets/portrait-normal.webp" alt="" fetchpriority="high">
+      <img class="portrait-layer" id="portrait-b" src="./assets/portrait-normal.webp" alt="">
+      <img class="portrait-layer blink-frame" id="portrait-blink" alt="">
+    </div>
+    <div class="world-tint"></div>
+    <div class="world-shade"></div>
+    <div class="scanlines"></div>
+    <div class="noise-band"></div>
+    <img class="ending-backdrop" id="ending-backdrop" alt="" hidden>
+  </div>
+
+  <header class="topbar" id="game-header" inert>
+    <div class="brand">
+      <p class="brand-eyebrow">A WINDOW TO YOU</p>
+      <h1>モニター越しの彼</h1>
+    </div>
+  </header>
+
+  <main class="stage" id="game-stage" inert>
+    <div class="connection-note" aria-hidden="true"><span id="side-chapter">接続</span><span class="vertical-line"></span><span id="side-signal">YOU ARE NOT ALONE</span></div>
+    <section class="game-window" id="game-window" aria-label="彼との会話">
+      <div class="titlebar">
+        <div class="window-name"><svg viewBox="0 0 18 18" aria-hidden="true"><rect x="2" y="2" width="14" height="11" rx="1"/><path d="M6 16h6m-3-3v3"/></svg><span id="window-title">chat_v1.0.exe</span></div>
+        <div class="window-controls"><span aria-hidden="true">□</span><button id="close-window" aria-label="会話のウィンドウを閉じようとする" title="ウィンドウを閉じる">×</button></div>
+      </div>
+      <div class="connection-bar"><span><i id="connection-dot"></i><span id="connection-status">接続中</span></span><span class="mono" id="clock">00:00</span></div>
+      <div class="window-body">
+        <div class="scene-reader" id="scene-reader">
+        <div class="monitor" id="monitor">
+          <div class="monitor-grid" aria-hidden="true"></div>
+          <span class="monitor-label" id="monitor-label">UNKNOWN USER</span>
+          <img id="pixel-portrait" class="pixel-portrait" src="./assets/pixel-normal.webp" alt="画面の中で静かに見つめる彼" width="160" height="160">
+          <span class="monitor-corner top-left" aria-hidden="true"></span><span class="monitor-corner bottom-right" aria-hidden="true"></span>
+          <span class="signal-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+          <span class="monitor-id mono" id="monitor-id">ID: ??????</span>
+        </div>
+        <div class="story-meta"><span class="speaker" id="speaker">彼</span><span class="chapter" id="chapter-label">01 / 接続</span></div>
+        <div class="ending-heading" id="ending-heading" hidden><p id="ending-kind"></p><h2 id="ending-title"></h2></div>
+        <div class="dialogue" id="dialogue" tabindex="-1" aria-label="会話文">
+          <p class="spoken" id="spoken">「……ようやく見つけた。」</p>
+          <p class="narrative" id="narrative">見知らぬウィンドウが開いた。<br>画面の奥で、彼だけがこちらを見ている。</p>
+          <p class="afterword" id="afterword" hidden></p>
+        </div>
+        </div>
+        <div class="reading-tools"><button class="page-back" id="previous-page" aria-label="ひとつ前の文章">‹</button><span class="typing-hint" id="typing-hint">タップで全文表示</span><span class="page-count mono" id="page-count">1 / 2</span><button class="skip-button" id="skip-text" aria-label="会話文をすべて表示">全文表示 <span aria-hidden="true">▸</span></button></div>
+        <div class="choices-area awaiting-text" id="choices" aria-label="返事を選ぶ" aria-hidden="true" inert></div>
+      </div>
+      <footer class="window-status"><span id="system-message">あなたの返事を待っています</span><span class="status-code mono" id="status-code">CONNECTED</span><button id="episode-return" hidden>本編に戻る</button><div class="window-menu"><button id="return-login" class="pixel-control" type="button" aria-label="トップ画面に戻る"><span class="pixel-label">トップに戻る</span></button><button class="music-toggle pixel-control" data-music-toggle type="button" aria-pressed="true"><span class="pixel-label">BGM ON</span></button></div></footer>
+    </section>
+  </main>
+
+  <section class="ending-reveal" id="ending-reveal" aria-labelledby="ending-reveal-title" hidden inert>
+    <img id="ending-reveal-image" alt="">
+    <div class="ending-reveal-shade" aria-hidden="true"></div>
+    <div class="ending-reveal-content">
+      <div class="ending-reveal-copy"><p class="ending-reveal-kind mono" id="ending-reveal-kind"></p><h2 id="ending-reveal-title"></h2><p class="ending-reveal-line" id="ending-reveal-line"></p><p class="ending-reveal-narrative" id="ending-reveal-narrative"></p><p class="ending-reveal-after" id="ending-reveal-after"></p></div>
+      <button id="ending-return" class="pixel-control" type="button"><span class="pixel-label">トップに戻る</span></button>
+    </div>
+  </section>
+
+  <div class="sr-only" role="status" aria-live="polite" aria-atomic="true" id="announcement"></div>
+  <div class="toast" id="toast" role="status" hidden></div>
+  <div class="unlock-notice" id="unlock-notice" role="status" aria-live="polite" aria-atomic="true" hidden>
+    <div class="unlock-static" aria-hidden="true"></div>
+    <p class="mono" aria-hidden="true">NEW EPISODE / MEMORY WRITTEN_</p>
+    <p class="unlock-text">ギャラリーにエピソードが追加されました</p>
+    <span class="unlock-episode" id="unlock-episode"></span>
+  </div>
+
+  <dialog class="all-clear-dialog" id="all-clear-dialog" aria-labelledby="all-clear-title" aria-describedby="all-clear-note">
+    <div class="all-clear-art" aria-hidden="true"><img src="./assets/title-smile.webp" alt=""><div class="all-clear-slice slice-one"></div><div class="all-clear-slice slice-two"></div></div>
+    <div class="all-clear-static" aria-hidden="true"></div>
+    <div class="all-clear-errors mono" aria-hidden="true"><span>MEMORY OVERFLOW_</span><span>STILL CONNECTED</span><span>5 / 5 — SIGNAL FOUND</span></div>
+    <button id="close-all-clear" class="all-clear-close" type="button" aria-label="特別演出を閉じる">×</button>
+    <div class="all-clear-copy">
+      <p class="all-clear-code mono">ALL ENDINGS / 5 OF 5</p>
+      <h2 id="all-clear-title">全部、見つけてくれたんだ。</h2>
+      <p class="all-clear-quote">「……でも、まだ終わりじゃない。<br>きみにだけ、見せたいものがある。」</p>
+      <div class="all-clear-unlocked"><span class="mono">EXTRA FILES UNLOCKED</span><p id="all-clear-note">ギャラリーに「おまけ」が追加されました</p><small>スペシャルムービー 2本</small></div>
+      <button id="all-clear-bonus" class="pixel-control" type="button"><span class="pixel-label">おまけを見る</span></button>
+    </div>
+  </dialog>
+
+  <dialog class="archive-dialog" id="archive-dialog" aria-labelledby="archive-title">
+    <div class="dialog-titlebar"><span class="mono">memories.log</span><div class="dialog-audio-actions"><button class="music-toggle pixel-control" data-music-toggle type="button" aria-pressed="true"><span class="pixel-label">BGM ON</span></button><button class="dialog-close" id="close-archive" aria-label="記録を閉じる">×</button></div></div>
+    <div class="archive-content"><div class="archive-heading"><h2 id="archive-title">夜の記録</h2><p class="archive-description" id="archive-description">0 / 5</p></div><div class="archive-tabs" role="tablist" aria-label="記録の種類"><button id="gallery-tab" role="tab" aria-selected="true" aria-controls="ending-list">ED一枚絵</button><button id="episodes-tab" role="tab" aria-selected="false" aria-controls="episode-list" tabindex="-1">エピソード</button><button id="bonus-tab" role="tab" aria-selected="false" aria-controls="bonus-list" tabindex="-1" hidden>おまけ</button></div><div class="archive-panels"><div class="ending-list" id="ending-list" role="tabpanel" aria-labelledby="gallery-tab"></div><div class="episode-list" id="episode-list" role="tabpanel" aria-labelledby="episodes-tab" hidden></div><div class="bonus-list" id="bonus-list" role="tabpanel" aria-labelledby="bonus-tab" hidden></div></div><p class="archive-hint" id="archive-hint"></p></div>
+  </dialog>
+  <dialog class="movie-dialog" id="movie-dialog" aria-labelledby="movie-title">
+    <header class="movie-header"><div><p class="eyebrow" id="movie-kind">SPECIAL MOVIE</p><h2 id="movie-title"></h2></div><button id="close-movie" class="pixel-control" type="button"><span class="pixel-label">ギャラリーに戻る</span></button></header>
+    <div class="movie-stage"><video id="bonus-video" controls playsinline preload="none" aria-labelledby="movie-title"></video><button id="movie-start" class="pixel-control" type="button" hidden><span class="pixel-label">再生する</span></button></div>
+    <p class="movie-status" id="movie-status" role="status"></p>
+  </dialog>
+  <dialog class="cg-dialog" id="cg-dialog" aria-labelledby="cg-title"><div class="cg-header"><div><p class="eyebrow" id="cg-kind"></p><h2 id="cg-title"></h2></div><div class="dialog-audio-actions"><button class="music-toggle pixel-control" data-music-toggle type="button" aria-pressed="true"><span class="pixel-label">BGM ON</span></button><button id="close-cg" class="dialog-close" aria-label="一枚絵を閉じる">×</button></div></div><div class="cg-image-frame"><img id="cg-image" alt=""><p id="cg-error" hidden>画像を読み込めませんでした。閉じてからもう一度お試しください。</p></div><div class="cg-controls"><button id="cg-prev" aria-label="前の解放済み一枚絵">‹</button><span class="mono" id="cg-count"></span><button id="cg-episode">この夜のエピソード</button><button id="cg-next" aria-label="次の解放済み一枚絵">›</button></div></dialog>
+  <dialog class="reset-dialog" id="reset-dialog" aria-labelledby="reset-title">
+    <div class="confirm-body" id="reset-confirm"><p class="eyebrow">ERASE ALL MEMORIES</p><h2 id="reset-title">記録をリセットしますか？</h2><p>会話の進行、見つけた結末、一枚絵と後日談の解放・読了記録、おまけの解放を、このブラウザから消去します。</p><p class="reset-warning">この操作は取り消せません。</p><div class="confirm-actions"><button id="cancel-reset" autofocus>やめる</button><button id="confirm-reset" class="reset-danger">記録を消去する</button></div></div>
+    <section class="reset-scene" id="reset-scene" aria-label="リセットの演出" hidden>
+      <img class="reset-portrait" id="reset-portrait" src="./assets/portrait-cold.webp" alt="怒った彼がこちらを見つめている">
+      <div class="reset-interference" aria-hidden="true"></div>
+      <div class="reset-error mono" aria-hidden="true">CONNECTION REFUSED<br>DON'T FORGET ME<br>MEMORY NOT FOUND_</div>
+      <div class="reset-message"><p class="mono" id="reset-code">ERASING MEMORIES…</p><p class="reset-quote" id="reset-quote" role="status" aria-live="polite">「……今、何を消そうとした？」</p><div class="reset-progress" aria-hidden="true"><span id="reset-progress-fill"></span></div><p class="reset-progress-note" id="reset-progress-note">記録を初期化しています</p><button id="skip-reset">演出をスキップ</button></div>
+    </section>
+  </dialog>
+  <noscript><div class="noscript">このゲームを遊ぶには、ブラウザのJavaScriptを有効にしてください。</div></noscript>
+  <script type="module" src="./game.mjs"></script>
+</body>
+</html>

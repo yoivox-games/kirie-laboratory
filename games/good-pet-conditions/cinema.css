@@ -1,0 +1,57 @@
+/* A quiet gold inscription introduces each chapter without blocking reading. */
+.story-view .scene-outgoing{z-index:0;pointer-events:none;transition:none}
+.story-view .chapter-card[hidden]{display:none}
+.chapter-card{position:absolute;z-index:3;left:25px;right:25px;top:18%;padding:24px 16px;text-align:center;pointer-events:none;background:linear-gradient(90deg,transparent,#0b0c13d9 20%,#0b0c13e6 50%,#0b0c13d9 80%,transparent);color:#e8d7b9;opacity:0}
+.chapter-card::before,.chapter-card::after{content:"";display:block;width:90px;height:1px;margin:0 auto;background:linear-gradient(90deg,transparent,#d2b786,transparent)}
+.chapter-card::before{margin-bottom:15px}.chapter-card::after{margin-top:15px}
+.chapter-card small{display:block;font-size:7px;letter-spacing:.34em;color:#b9a888;margin-bottom:11px}
+.chapter-card strong{display:block;font-family:var(--serif);font-size:20px;font-weight:400;line-height:1.8;letter-spacing:.13em;text-wrap:balance}
+.chapter-card.is-visible{animation:chapterInscription 3.6s ease both}
+@keyframes chapterInscription{0%{opacity:0;transform:translateY(6px)}18%,74%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-4px)}}
+.story-view .story-progress i{box-shadow:0 0 8px #d4b67744}
+.choice{position:relative;overflow:hidden;transition:border-color .25s,background .25s,box-shadow .25s}
+.choice::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:#d7bc90;transform:scaleY(0);transition:transform .25s}
+.choice:hover::before,.choice:focus-visible::before{transform:scaleY(1)}
+.choice:focus-visible{box-shadow:inset 0 0 24px #c9a56712;outline-offset:3px}
+.ending-insignia{position:relative;width:78px;height:78px;margin:0 auto 24px;display:grid;place-items:center}
+.ending-insignia .ending-seal{width:44px;height:44px;margin:0;opacity:.9}
+.ending-insignia::before,.ending-insignia::after{content:"";position:absolute;inset:0;border:1px solid #c4a8767a;border-radius:50%;pointer-events:none}
+.ending-insignia::after{inset:7px;border-color:#c4a87638;outline:1px solid #c4a87620;outline-offset:11px}
+.ending-insignia::before{animation:archiveSeal 1.8s cubic-bezier(.16,1,.3,1) both}
+.ending-insignia .ending-seal{animation:sealAppear 1.5s .15s ease both}
+.ending-view .ending-kicker,.ending-view .ending-content h1,.ending-view .ending-subtitle{animation:recordInscription 1.2s ease both}
+.ending-view .ending-content h1{animation-delay:.15s}.ending-view .ending-subtitle{animation-delay:.3s}
+@keyframes archiveSeal{from{opacity:0;transform:scale(1.3) rotate(-24deg)}to{opacity:1;transform:scale(1) rotate(0)}}
+@keyframes sealAppear{from{opacity:0;filter:blur(3px)}to{opacity:.9;filter:blur(0)}}
+@keyframes recordInscription{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+.art-backdrop{padding:0;background:#08090d;backdrop-filter:none}
+.art-modal{background:radial-gradient(ellipse at 50% 35%,#232129,#08090d 75%)}
+.art-modal .modal-head{flex-shrink:0;border-bottom:1px solid #bfa78222;min-height:64px;gap:8px}
+.art-modal .modal-head h2{font-family:var(--serif);font-size:12px;line-height:1.6;color:#e0ceb1}
+.art-modal .modal-body{display:flex;flex-direction:column;overflow:hidden;padding:0}
+.art-viewport{flex:1;min-height:0;overflow:hidden;position:relative;touch-action:pan-y}
+.art-viewport .art-figure{position:relative;transition:opacity .3s}
+.art-viewport .art-figure img{filter:none}
+.art-viewport.is-zoomed{overflow:auto;touch-action:pan-x pan-y;overscroll-behavior:contain;cursor:grab}
+.art-viewport.is-zoomed:active{cursor:grabbing}
+.art-viewport.is-zoomed .art-figure{width:200%;height:200%;max-width:none;max-height:none}
+.art-viewer-foot{flex-shrink:0;padding:10px 14px calc(11px + env(safe-area-inset-bottom,0px));background:#0c0d13;border-top:1px solid #bfa7822d}
+.art-viewer-nav{display:grid;grid-template-columns:44px 1fr 44px;align-items:center;gap:10px}
+.art-viewer-nav .icon-button{border:1px solid #bfa78238;background:#bfa78208}
+.art-viewer-center{text-align:center;display:grid;gap:7px}
+.art-index{font-size:9px;letter-spacing:.25em;color:#c4ad87;font-variant-numeric:tabular-nums}
+.art-zoom{min-height:36px;display:inline-flex;gap:7px;align-items:center;justify-content:center;color:#ded0b9;font-size:11px;letter-spacing:.08em}
+.art-zoom svg{width:15px;height:15px}
+.art-viewer-help{text-align:center;margin-top:6px;font-size:9px;color:#8e877b;letter-spacing:.04em}
+.art-viewer-note{position:absolute;inset:40% 15%;font-size:12px;line-height:1.8;text-align:center;color:#c4b5a0;pointer-events:none}
+.art-viewer-note[hidden]{display:none}
+.gallery-note{border-left:1px solid #bfa78280;padding-left:12px}
+.art-grid .archive-card-image{border:1px solid #bfa78238;background:#08090e;box-shadow:0 5px 16px #0003}
+.art-grid .archive-card:not(:disabled) .archive-card-image img{transition:transform .7s ease,filter .7s ease}
+.art-grid .archive-card:hover:not(:disabled) .archive-card-image img{transform:scale(1.035);filter:brightness(1.08)}
+.art-grid .archive-card:focus-visible{outline-offset:4px}
+.cinema-paused .chapter-card,.cinema-paused .ending-insignia *,.cinema-paused .ending-insignia::before{animation-play-state:paused}
+.reduced-motion .chapter-card{display:none}
+@media(prefers-reduced-motion:reduce){.chapter-card{display:none}}
+@media(max-height:650px){.chapter-card{top:20%;padding:15px 12px}.chapter-card strong{font-size:17px}.ending-insignia{width:50px;height:50px;margin-bottom:16px}.ending-insignia .ending-seal{width:30px;height:30px}.art-modal .modal-head{min-height:50px}.art-viewer-foot{padding-top:6px;padding-bottom:calc(6px + env(safe-area-inset-bottom,0px))}.art-viewer-help{margin-top:2px}}
+.story-view .portrait.scene-z-c-case img{transform:translateY(7%)}
