@@ -1,0 +1,36 @@
+name: Import Kirie Laboratory media
+
+on:
+  push:
+    branches: [kirie-migration]
+    paths:
+      - '.github/workflows/import-original-media.yml'
+      - '.github/migration/media-manifest.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: kirie-media-import
+  cancel-in-progress: false
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v5
+      - name: Download and verify the original images, audio, videos, and PDFs
+        run: |
+          python3 .github/migration/copy_published_media.py .github/migration/media-manifest.json --pathspec .git/kirie-media.pathspec
+      - name: Commit the verified media
+        run: |
+          git add --pathspec-from-file=.git/kirie-media.pathspec --pathspec-file-nul
+          if git diff --cached --quiet; then
+            echo "The verified media is already in the repository."
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m "Add the original Kirie Laboratory media"
+          git push origin HEAD:refs/heads/kirie-migration

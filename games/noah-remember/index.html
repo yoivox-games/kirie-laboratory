@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#111314">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="manifest.webmanifest">
+  <title>やさしい声のするほうへ — ノア</title>
+  <meta name="description" content="目を開けると、白いシャツの青年がいた。ノアと、少しだけお話を。スマートフォンで遊ぶ会話アドベンチャー。">
+  <meta property="og:title" content="やさしい声のするほうへ">
+  <meta property="og:description" content="ねえ、僕の声、聞こえる？ ノアと過ごす、小さな物語。">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ja_JP">
+  <meta property="og:site_name" content="やさしい声のするほうへ">
+  <meta property="og:url" content="https://yoivox-games.github.io/kirie-laboratory/games/noah-remember/">
+  <meta property="og:image" content="https://yoivox-games.github.io/kirie-laboratory/games/noah-remember/assets/noah-link-card-v3.png">
+  <meta property="og:image:secure_url" content="https://yoivox-games.github.io/kirie-laboratory/games/noah-remember/assets/noah-link-card-v3.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1731">
+  <meta property="og:image:height" content="909">
+  <meta property="og:image:alt" content="白いシャツのノアが微笑む「やさしい声のするほうへ」のリンクカード">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="やさしい声のするほうへ">
+  <meta name="twitter:description" content="ねえ、僕の声、聞こえる？ ノアと過ごす、小さな物語。">
+  <meta name="twitter:image" content="https://yoivox-games.github.io/kirie-laboratory/games/noah-remember/assets/noah-link-card-v3.png">
+  <meta name="twitter:image:alt" content="白いシャツのノアが微笑む「やさしい声のするほうへ」のリンクカード">
+  <link rel="canonical" href="https://yoivox-games.github.io/kirie-laboratory/games/noah-remember/">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" as="image" href="assets/warm-wake.webp" fetchpriority="high">
+  <link rel="stylesheet" href="style.css?v=20">
+  <script src="story.js?v=5" defer></script>
+  <script src="conversations.js?v=5" defer></script>
+  <script src="audio.js" defer></script>
+  <script src="movies.js?v=22" defer></script>
+  <script src="bonus-stories.js?v=21" defer></script>
+  <script src="save-data.js?v=14" defer></script>
+  <script src="storage.js?v=14" defer></script>
+  <script src="fullscreen.js?v=13" defer></script>
+  <script src="game.js?v=19" defer></script>
+</head>
+<body>
+  <div class="ambient" aria-hidden="true"></div>
+  <aside class="desktop-note" aria-hidden="true"><span>NOAH</span><i></i><p>目が合ったら、<br>お話の続きを。</p></aside>
+  <main id="game" class="game is-title">
+    <div id="stage" class="stage" aria-label="ノアのいる部屋">
+      <img id="art-a" class="art visible" src="assets/warm-wake.webp" alt="白いシャツのノアが、こちらを覗き込んでいる" draggable="false" fetchpriority="high">
+      <img id="art-b" class="art" alt="" draggable="false">
+      <div class="scene-shade"></div>
+      <div class="dust" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div id="scene-effect" class="scene-effect" aria-hidden="true"></div>
+      <div class="eyelid top" aria-hidden="true"></div><div class="eyelid bottom" aria-hidden="true"></div>
+    </div>
+    <header class="topbar">
+      <button id="home" class="brand quiet" aria-label="タイトルに戻る">N<span>OAH</span></button>
+      <span id="chapter" class="chapter" hidden>目をあけて</span>
+      <div class="top-actions">
+        <button id="fullscreen" class="round-button" aria-label="全画面で遊ぶ" aria-pressed="false" title="全画面で遊ぶ"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="fullscreen-enter" d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/><path class="fullscreen-exit" d="M3 8h5V3m8 0v5h5M8 21v-5H3m18 0h-5v5"/></svg></button>
+        <button id="sound" class="round-button" aria-label="音を切り替える" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z"/><path class="sound-waves" d="M17 8c2 2 2 6 0 8m3-11c4 4 4 10 0 14"/><path class="sound-slash" d="m17 9 5 6m0-6-5 6"/></svg></button>
+        <button id="settings" class="round-button" aria-label="設定をひらく"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="2.5"/><circle cx="15" cy="17" r="2.5"/></svg></button>
+      </div>
+    </header>
+    <section id="title-screen" class="title-screen" aria-labelledby="title">
+      <div class="title-copy"><p class="eyebrow">きみと、少しだけ。</p><h1 id="title" aria-label="やさしい声のするほうへ">やさしい声の<wbr>するほうへ</h1><div class="ornament" aria-hidden="true"><i></i><b>✧</b><i></i></div><p class="title-whisper">「僕の声、聞こえる？」</p></div>
+      <nav class="title-menu" aria-label="メインメニュー">
+        <button id="start" class="primary" disabled>はじめから<span aria-hidden="true">→</span></button>
+        <button id="continue" class="secondary" disabled>つづきから<span id="continue-chapter"></span></button>
+        <button id="bonus" class="text-button bonus-link" hidden>ノアのオマケ <span aria-hidden="true">▷</span></button>
+      </nav>
+      <p class="title-foot">訪れるたび、違うおしゃべりを。<br><span data-save-status role="status">記録を確かめています…</span></p>
+    </section>
+    <section id="play-screen" class="play-screen" hidden aria-label="物語">
+      <div id="choices" class="choices" aria-label="返事を選ぶ" hidden></div>
+      <div class="dialogue-wrap" id="dialogue-wrap">
+        <div class="speaker-row"><span class="speaker-rule"></span><span id="speaker" class="speaker">ノア</span></div>
+        <button id="dialogue" class="dialogue" aria-label="会話を進める"><span id="text"></span><span id="next-marker" class="next-marker" aria-hidden="true">◇</span></button>
+        <p id="tap-hint" class="tap-hint">タップして、続きを。</p>
+      </div>
+      <nav class="play-toolbar" aria-label="会話の操作">
+        <button id="log-button">会話ログ</button>
+        <button id="auto-button" aria-pressed="false">自動 <span>OFF</span></button>
+        <button id="skip-button" aria-pressed="false" hidden>既読送り</button>
+        <button id="hide-button" aria-label="会話ウィンドウを隠してイラストを見る"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></button>
+      </nav>
+      <button id="restore-ui" class="restore-ui" hidden>タップで会話に戻る</button>
+    </section>
+    <section id="ending-screen" class="ending-screen" hidden aria-label="終幕">
+      <p id="ending-number" class="eyebrow"></p><h2 id="ending-title"></h2><div class="ornament" aria-hidden="true"><i></i><b>✧</b><i></i></div><p id="ending-line"></p>
+      <button id="ending-home" class="primary">はじめに戻る<span aria-hidden="true">→</span></button>
+      <button id="ending-bonus" class="text-button bonus-link" hidden>ノアのオマケを見る <span aria-hidden="true">▷</span></button>
+      <p class="ending-save-status" data-save-status role="status">記録を保存しています…</p>
+      <p id="completion" class="completion" hidden>三つの余白が、埋まった。<br>もう一度、あの声を聞いてみる？</p>
+    </section>
+    <div id="modal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-panel"><header><div><p id="modal-kicker" class="eyebrow">NOAH</p><h2 id="modal-title"></h2></div><button id="modal-close" class="close-button" aria-label="閉じる">×</button></header><div id="modal-content" class="modal-content"></div></div>
+    </div>
+    <div id="art-viewer" class="art-viewer" hidden role="dialog" aria-modal="true" aria-label="イラストを表示"><img id="viewer-image" alt=""><button id="viewer-close" class="close-button" aria-label="イラストを閉じる">×</button><p id="viewer-caption"></p></div>
+    <div id="toast" role="status" class="toast" hidden></div>
+  </main>
+  <aside class="desktop-note right-note" aria-hidden="true"><p>やさしい声のするほうへ</p><i></i><span>A STORY WITH YOU</span></aside>
+  <noscript>この物語を遊ぶには、ブラウザのJavaScriptを有効にしてください。</noscript>
+</body>
+</html>

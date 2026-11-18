@@ -1,0 +1,57 @@
+.music-inline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 16px;
+  margin-top: 16px;
+}
+.music-inline[hidden], .music-floating[hidden] { display: none; }
+.music-toggle, .music-floating {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid #a5a69c;
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 1.4;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.music-toggle:hover, .music-floating:hover { border-color: var(--ink); }
+.music-toggle:disabled { cursor: progress; }
+.music-toggle[aria-pressed="true"], .music-floating { border-color: #64887c; }
+.music-toggle[aria-pressed="true"] svg { color: #54796e; }
+.music-toggle[aria-pressed="false"] .music-waves,
+.music-toggle[aria-pressed="true"] .music-muted { display: none; }
+.music-volume {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 11px;
+}
+.music-volume input { width: 86px; height: 36px; margin: 0; accent-color: #54796e; cursor: pointer; }
+.music-volume input:focus-visible { outline: 2px solid #997035; outline-offset: 3px; }
+.music-caption { flex-basis: 100%; color: var(--muted); font-size: 10px; letter-spacing: .055em; }
+.music-inline + .hero-footnote { margin-top: 24px; }
+.music-floating {
+  position: fixed;
+  z-index: 32;
+  left: max(16px, env(safe-area-inset-left));
+  bottom: max(12px, env(safe-area-inset-bottom));
+  font-size: 11px;
+}
+.music-active .kiri-control { left: auto !important; right: max(16px, env(safe-area-inset-right)) !important; }
+@media (max-width: 600px) {
+  .music-inline { gap: 4px 12px; }
+  .music-floating { left: max(10px, env(safe-area-inset-left)); bottom: max(8px, env(safe-area-inset-bottom)); }
+  .music-active .kiri-control { right: max(10px, env(safe-area-inset-right)) !important; }
+}
+@media print { .music-inline, .music-floating { display: none; } }

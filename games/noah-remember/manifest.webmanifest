@@ -1,0 +1,23 @@
+{
+  "id": "./",
+  "name": "やさしい声のするほうへ",
+  "short_name": "やさしい声",
+  "lang": "ja",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "display_override": [
+    "fullscreen",
+    "standalone"
+  ],
+  "background_color": "#0c1011",
+  "theme_color": "#0c1011",
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

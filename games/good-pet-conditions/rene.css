@@ -1,0 +1,20 @@
+/* A home outside the registration network. Story illustrations remain unframed. */
+.rene-title-link{display:flex;align-items:center;justify-content:center;gap:8px;margin:13px auto 0;padding:8px 16px;min-height:38px;border:1px solid #c4c8b875;color:#e2e5d5;font-family:var(--serif);font-size:12px;letter-spacing:.1em;background:#a9b6a814}
+.rene-title-link svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.3}
+.rene-gate .portrait img{height:100%;object-position:50% 12%;filter:brightness(.87) saturate(.85)}
+.rene-gate .vignette{background:linear-gradient(180deg,#0d11152e,transparent 24%,#11171d35 42%,#11171de8 72%,#11171d 100%)}
+.rene-gate-body{position:absolute;bottom:calc(25px + env(safe-area-inset-bottom,0px));left:28px;right:28px;color:#eee4d2}
+.rene-gate-body .eyebrow{font-size:8px;letter-spacing:.23em;color:#c3b592}
+.rene-gate h1{font-family:var(--serif);font-size:26px;font-weight:400;letter-spacing:.1em;margin:13px 0 15px;line-height:1.6}
+.rene-gate-copy{font-family:var(--serif);font-size:12px;line-height:2;color:#c8d0c8;letter-spacing:.04em}
+.rene-gate .route-progress{margin:17px 0;color:#bfc6b7}
+.rene-gate-actions{display:grid;gap:8px}
+.rene-gate-actions .btn{min-height:46px;font-size:12px}
+.rene-gate .top-button{font-family:var(--sans);font-size:11px}
+.rene-ending .ending-content h1{font-size:27px;letter-spacing:.07em}
+.rene-story .vignette{background:linear-gradient(180deg,#10151db5 0,transparent 19%,transparent 41%,#10151d85 59%,#10151df7 81%,#10151d 100%)}
+.rene-story .scene-location{color:#e2dacc}
+.rene-story .speaker-role{color:#c8c8b5}
+.rene-story.art-r-c8 #scene-image{transform:translateY(7%)}
+@media(max-height:650px){.rene-gate h1{font-size:24px;margin:8px 0 9px}.rene-gate-body{bottom:17px;left:23px;right:23px}.rene-gate-copy{font-size:11px}.rene-gate .route-progress{margin:11px 0}.rene-gate-actions .btn{min-height:42px}.rene-title-link{margin-top:8px;min-height:34px;padding:5px 12px}.title-view:has(.rene-title-link) .tagline{margin:8px 0 12px}.title-view:has(.rene-title-link) .title-links{margin:8px 0 5px}.rene-ending .ending-content h1{font-size:23px}}
+@media(max-width:350px){.rene-gate h1{font-size:23px}.rene-gate .btn{letter-spacing:.04em}.rene-ending .ending-content{left:23px;right:23px}}
