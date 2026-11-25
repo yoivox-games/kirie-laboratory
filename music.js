@@ -132,6 +132,15 @@
   } else {
     controlsVisible = false;
   }
+  // Game cards open separate tabs, so pause before the link opens.
+  function stopForGame(event) {
+    if (event.type === 'click' || event.button === 1) pause(true);
+  }
+
+  for (const link of document.querySelectorAll('#games a.game-link')) {
+    link.addEventListener('click', stopForGame);
+    link.addEventListener('auxclick', stopForGame);
+  }
   window.addEventListener('pagehide', () => pause(true));
   controls.hidden = false;
   render('paused');
